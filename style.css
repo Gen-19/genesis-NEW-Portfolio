@@ -63,7 +63,8 @@ header {
   background-color: var(--masthead-grey);
   color: var(--masthead-text);
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   padding: 0;
   border-top: 3px solid var(--gold);
 }
@@ -95,7 +96,6 @@ header h1 {
   color: var(--masthead-text);
   margin: 0;
   font-weight: 400;
-  white-space: nowrap;
 }
 
 header:not(:has(.header-container)) {
@@ -146,30 +146,35 @@ header:not(:has(.header-container)) a:hover {
 
 @media (max-width: 720px) {
   .header-container {
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.75rem, 3vw, 1.25rem);
+    gap: clamp(1rem, 3vw, 1.5rem);
     padding-block: clamp(1.5rem, 5vw, 2.35rem);
-    padding-inline: clamp(0.75rem, 3vw, 1.25rem);
+    padding-inline: clamp(0.85rem, 4vw, 1.5rem);
   }
 
   .header-text {
-    text-align: left;
-    flex: 1 1 auto;
+    text-align: center;
+    flex: none;
+    width: 100%;
     min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .profile-pic {
-    width: clamp(108px, 26vw, 160px);
+    width: clamp(132px, 36vw, 200px);
     flex-shrink: 0;
   }
 
   header h1,
   .header-container h1 {
-    white-space: nowrap;
+    white-space: normal;
     font-size: clamp(1.48rem, 5.4vw + 0.12rem, 4.65rem);
+    line-height: 0.98;
   }
 }
 
@@ -180,7 +185,7 @@ header:not(:has(.header-container)) a:hover {
   }
 
   .profile-pic {
-    width: min(92px, 24vw);
+    width: min(124px, 42vw);
   }
 }
 
@@ -209,7 +214,13 @@ header:not(:has(.header-container)) a:hover {
   font-size: clamp(1.82rem, 8.25vw + 0.28rem, 6.5rem);
   line-height: 0.92;
   letter-spacing: 0.01em;
-  white-space: nowrap;
+}
+
+@media (min-width: 721px) {
+  header h1,
+  .header-container h1 {
+    white-space: nowrap;
+  }
 }
 
 .header-text p:first-of-type {
@@ -355,7 +366,24 @@ section {
   margin-block: 0;
   margin-inline: auto;
   padding-block: clamp(0.2rem, 0.55vw, 0.45rem);
-  padding-inline: var(--content-pad-inline);
+  padding-inline: max(var(--content-pad-inline), env(safe-area-inset-left, 0px))
+    max(var(--content-pad-inline), env(safe-area-inset-right, 0px));
+}
+
+@media (max-width: 540px) {
+  #about,
+  #portfolio,
+  #resume,
+  #contact {
+    padding-inline: max(
+        clamp(1.15rem, 5.5vw, 2.35rem),
+        env(safe-area-inset-left, 0px)
+      )
+      max(
+        clamp(1.15rem, 5.5vw, 2.35rem),
+        env(safe-area-inset-right, 0px)
+      );
+  }
 }
 
 #about {
