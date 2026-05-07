@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Award photos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">About</a>
+    <a href="index.html#portfolio">Portfolio</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+
+  <!-- Photo Section -->
+  <section>
+  <h2>Montclair News Lab: Hurricane Recovery Mission to Puerto Rico award photos</h2>
+  <div class="gallery-grid">
+
+    <div class="gallery-item">
+      <button type="button" class="gallery-zoom-trigger" aria-label="View larger: Puerto Rico award photo 1">
+        <img src="images/awardwin1.jpg" alt="Puerto Rico Photo 1">
+      </button>
+      <p class="photo-credit">Photo Credit: Thomas E.Franklin </p>
+    </div>
+
+    <div class="gallery-item">
+      <button type="button" class="gallery-zoom-trigger" aria-label="View larger: Puerto Rico award photo 2">
+        <img src="images/awardwin2.png" alt="Puerto Rico Photo 2">
+      </button>
+      <p class="photo-credit">Photo Credit: Thomas E.Franklin</p>
+    </div>
+
+    <div class="gallery-item">
+      <button type="button" class="gallery-zoom-trigger" aria-label="View larger: Puerto Rico award photo 3">
+        <img src="images/awardwin3.png" alt="Puerto Rico Photo 3">
+      </button>
+      <p class="photo-credit">Photo Credit: Thomas E.Franklin</p>
+    </div>
+
+    <div class="gallery-item">
+      <button type="button" class="gallery-zoom-trigger" aria-label="View larger: Puerto Rico award photo 4">
+        <img src="images/awardwin4.jpeg" alt="Puerto Rico Photo 4">
+      </button>
+      <p class="photo-credit"></p>
+    </div>
+
+  </div>
+
+  <div id="photo-lightbox" class="photo-lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged photo">
+    <button type="button" class="photo-lightbox-backdrop" tabindex="-1" aria-label="Close enlarged photo"></button>
+    <div class="photo-lightbox-frame">
+      <button type="button" class="photo-lightbox-close" aria-label="Close photo">&times;</button>
+      <img src="" alt="" class="photo-lightbox-img">
+    </div>
+  </div>
+
+  <p style="margin-top:1rem;">
+    <a href="index.html" class="button">⬅ Back to Portfolio</a>
+  </p>
+</section>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Genesis Obando. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var lb = document.getElementById("photo-lightbox");
+      if (!lb) return;
+      var lbImg = lb.querySelector(".photo-lightbox-img");
+      var backdrop = lb.querySelector(".photo-lightbox-backdrop");
+      var btnClose = lb.querySelector(".photo-lightbox-close");
+
+      function open(img) {
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt || "";
+        lb.hidden = false;
+        document.body.style.overflow = "hidden";
+        btnClose.focus();
+      }
+
+      function close() {
+        lb.hidden = true;
+        lbImg.src = "";
+        lbImg.alt = "";
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll(".gallery-zoom-trigger").forEach(function (trigger) {
+        trigger.addEventListener("click", function () {
+          var img = trigger.querySelector("img");
+          if (img) open(img);
+        });
+      });
+
+      backdrop.addEventListener("click", close);
+      btnClose.addEventListener("click", close);
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !lb.hidden) close();
+      });
+    })();
+  </script>
+
+</body>
+</html>
